@@ -1,5 +1,6 @@
 import urllib
 import requests
+import random
 import re
 import config
 import headerFunc
@@ -51,11 +52,18 @@ def urlParse(url):#处理url结构
     return Result
 
 
-def spiderInit(url):#对url检测
-
-    (result) = requests.get(url=url,timeout=0.5)
+def spiderInit(url,timeout):#对url检测
+    
+    UA = random.choice(config.user_agent_list)  #随机ua
+    headers = {'User-Agent': UA}  #构造成一个完整的User-Agent
+    (result) = requests.get(url=url,timeout=timeout,headers=headers)
     (responseHeader,content,status_code) = (result.headers,result.content,result.status_code)
-    print (headerFunc.headerDetect(responseHeader))
-
+    try:
+        whatweb_result = headerFunc.headerDetect(url)
+        print (whatweb_result)
+    except:
+        print("whatweb异常")
+        pass
+    print (type(whatweb_result))
 
 

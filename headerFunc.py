@@ -1,14 +1,11 @@
 import requests
+# import sys
+import subprocess
 
 
 
-
-
-def headerDetect(header):
+def headerDetect(url):
     result = []
-    if header["Server"]:
-        result.append(header["Server"])
-    if header["X-Powered-By"]:
-        result.append(header["X-Powered-By"])
-    print(result)
+    status,result = subprocess.getstatusoutput("ruby /Users/lichengyu/pentest/WhatWeb-master/whatweb %s"%url)
+    # print(result)
     return result

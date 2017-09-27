@@ -1,12 +1,13 @@
 #coding:utf-8
-import request
+from urllib.parse import urlparse
+import requests
 import sys
 from optparse import OptionParser
 import os
 import commonFunc
 import config
 import hack
-from urllib.parse import urlparse
+
 
 
 if __name__ == "__main__":
@@ -14,6 +15,12 @@ if __name__ == "__main__":
     #filename  url存放文件
     #url       指定url
     #storepath log日志存放文件夹
+    # for i in sys.argv:
+    #     if i !="-h" and i!= "-f" and i!="-u" and i!="main.py":
+    #         sys.argv = ["main.py","-h"]
+    #         #提示用法
+    #     else:
+    #         pass
     (options , args ) = commonFunc.addOption()
 
 
@@ -40,4 +47,4 @@ if __name__ == "__main__":
     for url in baseUrl:
 
         #针对url进行扫描
-        commonFunc.spiderInit(url)
+        commonFunc.spiderInit(url,config.timeout)
